@@ -17,7 +17,7 @@ ReactDOM.render(
     <App>
       <Switch>
         <Route exact path="/" component={DemoPage} />
-        // <Route path="/search" component={SearchPage} />
+        <Route path="/search" component={SearchPage} />
         <Route path="/artist/:id" component={ArtistPage} />
         <Route path="/album/:id" component={AlbumPage} />
         <Route component={NotFoundPage} />

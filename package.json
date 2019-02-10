@@ -15,16 +15,23 @@
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.26.0",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "express": "^4.16.3",
     "history": "^4.7.2",
+    "morgan": "^1.9.1",
+    "path": "^0.12.7",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "request": "^2.88.0",
+    "res-json": "^1.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
