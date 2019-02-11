@@ -1,7 +1,9 @@
 import React from 'react'
 import axios from 'axios'
+import Alert from 'react-bootstrap/Alert'
+import Button from 'react-bootstrap/Button'
 
-const defaultArtists = [...Array(3).keys()]
+// const defaultArtists = [...Array(3).keys()]
 
 class SearchPage extends React.Component {
   constructor(props) {
@@ -38,7 +40,6 @@ class SearchPage extends React.Component {
       console.log('items : ', items.data);
       this.setState({
         isLoading : false,
-        submitted : false,
         error : false,
         value : '',
         artists: items.data
@@ -64,11 +65,15 @@ class SearchPage extends React.Component {
     e.preventDefault();
     const { value } = this.state;
     if (value === '') {
-      this.setState({emptyValue: true})
+      this.setState({
+        emptyValue: true,
+        submitted: true,
+      })
     }
     else {
       this.setState({
         submitted: true,
+        error: false,
         isLoading: true,
         emptyValue: false
       });
@@ -76,9 +81,11 @@ class SearchPage extends React.Component {
     }
   }
 
+
+
   render () {
-    const { value } = this.state;
-    const { artists } = this.state;
+    const { artists, value, error, submitted, isLoading,
+      emptyValue } = this.state;
     return (
         <div>
           <div className="container">
@@ -99,30 +106,63 @@ class SearchPage extends React.Component {
                       onChange={this.handleChange}
                     />
                   </div>
-                  <button type="submit" className="btn btn-primary">
-                    Chercher
-                  </button>
+                  <Button
+        variant="primary"
+        disabled={isLoading}
+        onClick={!isLoading ? this.handleSubmit : null}
+      >
+        {isLoading ? 'Loading…' : 'Click to load'}
+      </Button>
                 </form>
               </div>
             </div>
           </div>
+          {
+            error && submitted && isLoading &&
+            <Alert  variant="danger">
+          Une erreure est survenue, recharger la page.
+            </Alert>
+          }
+
+          {
+            emptyValue && submitted &&
+            <Alert  variant="warning">
+          Le champs de recherche est vide...
+            </Alert>
+          }
+          {
+            artists.length === 0 && !isLoading && submitted && !emptyValue &&
+            <Alert variant="danger">
+            Aucun artiste ne correspond à cette recherche...
+            </Alert>
+          }
+
           <div className="container artists">
-            {artists.map((artist,index) => (
-              <div key={artist.id} className="media-container">
-                <div  className="media">
-                  <img
-                    className="align-self-start mr-3"
-                    src={artist.images[2].url}
-                    alt="Generic placeholder image"
-                  />
-                  <div className="media-body">
-                    <h5 className="mt-0">{artist.name}</h5>
-                    {artist.genres[0]}
+            {
+              artists.length > 0 && !isLoading && submitted &&
+              artists.map((artist,index) => (
+                <div key={artist.id} className="media-container">
+                  <a href={`/artist/${artist.id}`}>
+                  <div  className="media">
+                  { artist.images.length > 0 &&
+                    <img className="align-self-start mr-3" src={artist.images[artist.images.length-1].url} height='64' weight="64" alt='cover' />
+                    }
+                    { artist.images.length === 0 &&
+                    <img className="align-self-start mr-3" src='http://placehold.it/64x64' alt="Generic placeholder image" />
+                    }
+                    <div className="media-body">
+                      <h5 className="mt-0">{artist.name}</h5>
+                      {artist.genres[0]}
+                    </div>
                   </div>
+                  </a>
                 </div>
-              </div>
-            ))}
+              ))
+            }
           </div>
+
+
+
           <div className="container text-center">
             <nav aria-label="Page navigation example">
               <ul className="pagination">

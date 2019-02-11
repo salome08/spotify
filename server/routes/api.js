@@ -44,7 +44,7 @@ router.get('/token', (req, res) => {
 
 router.get('/search', (req, res) => {
   const {artist} = req.query;
-  const url = 'https://api.spotify.com/v1/search?q='+ artist +'&type=artist&limit=5'
+  const url = 'https://api.spotify.com/v1/search?q='+ artist +'&type=artist&limit=20'
   Object.assign(apiOptions, {uri: url});
   request.get(apiOptions, (err, response, body) => {
     if (body) {
@@ -56,6 +56,11 @@ router.get('/search', (req, res) => {
   })
 });
 
+
+router.get('/artist', (req, res) => {
+  console.log('here');
+  console.log(req.query);
+});
   //
   // request({
   //   headers: requestParameters.headers,

@@ -4,6 +4,8 @@
 
 * extract the access token
 id = 1vCWHaC5f2uS3yhpwWbIA6
+clientId = 6fa5833cc5624630b1605c1be289f43f
+clientSecret = 097a5717688c46a1ae4519f369338666
 Oauth token = BQDxwG8b9DVaKN1ByItR_l4er4dBgK8JZ2KlUKzkBKDvsfQHuMo0c5iYr2FQ_0yNxgyZuNupnzOgUBO5ki4x2uSxmFNW5H7HxqoL8VoTaS
 
 ## Énoncé

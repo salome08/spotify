@@ -1,6 +1,42 @@
 import React from 'react'
 
 class ArtistPage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoading: false,
+      error: false,
+      id: '',
+      artist: '',
+      albums: []
+    }
+
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  componentWillMount() {
+    this.setState({
+      id: this.props.params.id
+    });
+  }
+
+  componentDidMount() {
+    this.handleSearch(this.state.id);
+  }
+
+  handleSearch(id) {
+    //request to server with the serched value
+    axios.get('http://localhost:3001/api/artist/' + id)
+    .then(items => {
+      console.log('items : ', items.data);
+    })
+    .catch(err => {
+    console.log('err : ', err);
+    })
+  }
+
+
   render () {
     return (
       <div className="container">
