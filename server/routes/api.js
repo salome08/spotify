@@ -57,9 +57,20 @@ router.get('/search', (req, res) => {
 });
 
 
-router.get('/artist', (req, res) => {
-  console.log('here');
-  console.log(req.query);
+router.get('/artist/:id', (req, res) => {
+  const id = req.params.id
+  const url = 'https://api.spotify.com/v1/artists/'+ id +'/albums?limit=5'
+  //
+  Object.assign(apiOptions, {uri : url});
+  console.log(apiOptions);
+  request.get(apiOptions, (err, response, body) => {
+    if (body) {
+      res.json(body.items)
+    }
+    if (err) {
+      res.send(err);
+    }
+  })
 });
   //
   // request({

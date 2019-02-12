@@ -37,7 +37,6 @@ class SearchPage extends React.Component {
     //request to server with the serched value
     axios.get('http://localhost:3001/api/search?artist=' + value , )
     .then(items => {
-      console.log('items : ', items.data);
       this.setState({
         isLoading : false,
         error : false,
@@ -145,7 +144,7 @@ class SearchPage extends React.Component {
                   <a href={`/artist/${artist.id}`}>
                   <div  className="media">
                   { artist.images.length > 0 &&
-                    <img className="align-self-start mr-3" src={artist.images[artist.images.length-1].url} height='64' weight="64" alt='cover' />
+                    <img className="align-self-start mr-3" src={artist.images[artist.images.length-1].url} height='64' width="64" alt='cover' />
                     }
                     { artist.images.length === 0 &&
                     <img className="align-self-start mr-3" src='http://placehold.it/64x64' alt="Generic placeholder image" />
