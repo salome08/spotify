@@ -62,7 +62,6 @@ router.get('/artist/:id', (req, res) => {
   const url = 'https://api.spotify.com/v1/artists/'+ id +'/albums?limit=5'
   //
   Object.assign(apiOptions, {uri : url});
-  console.log(apiOptions);
   request.get(apiOptions, (err, response, body) => {
     if (body) {
       res.json(body.items)
@@ -72,18 +71,22 @@ router.get('/artist/:id', (req, res) => {
     }
   })
 });
+
+router.get('/album/:id', (req, res) => {
+  const id = req.params.id
+  console.log('id : ');
+  const url = 'https://api.spotify.com/v1/albums/'+ id +'/tracks?limit=20'
   //
-  // request({
-  //   headers: requestParameters.headers,
-  //   uri: url.token_url,
-  //   body: requestParameters.body,
-  //   method: 'POST'
-  // }, (err, res, body) => {
-  //   console.log('working : ', res);
-  //   if (err) {
-  //     console.log('error : ', err);
-  //   }
-  // });
+  Object.assign(apiOptions, {uri : url});
+  request.get(apiOptions, (err, response, body) => {
+    if (body) {
+      res.json(body.items)
+    }
+    if (err) {
+      res.send(err);
+    }
+  })
+});
 
 
 module.exports = router

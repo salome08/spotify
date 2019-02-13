@@ -2,6 +2,8 @@ import React from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
+import { Link } from 'react-router-dom'
+import Pagination from '../components/Pagination'
 
 // const defaultArtists = [...Array(3).keys()]
 
@@ -15,9 +17,11 @@ class SearchPage extends React.Component {
       error: false,
       emptyValue: false,
       value: '',
-      artists: []
+      artists: [],
+      pageOfItems: []
     }
 
+    this.onChangePage = this.onChangePage.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,6 +36,11 @@ class SearchPage extends React.Component {
       console.log('err : ', err);
     })
   }
+
+  onChangePage(pageOfItems) {
+          // update state with new page of items
+          this.setState({ pageOfItems: pageOfItems });
+      }
 
   handleSearch(value) {
     //request to server with the serched value
@@ -139,9 +148,9 @@ class SearchPage extends React.Component {
           <div className="container artists">
             {
               artists.length > 0 && !isLoading && submitted &&
-              artists.map((artist,index) => (
+              this.state.pageOfItems.map((artist,index) => (
                 <div key={artist.id} className="media-container">
-                  <a href={`/artist/${artist.id}`}>
+                  <Link to={`/artist/${artist.id}`}>
                   <div  className="media">
                   { artist.images.length > 0 &&
                     <img className="align-self-start mr-3" src={artist.images[artist.images.length-1].url} height='64' width="64" alt='cover' />
@@ -154,45 +163,16 @@ class SearchPage extends React.Component {
                       {artist.genres[0]}
                     </div>
                   </div>
-                  </a>
+                  </Link>
                 </div>
               ))
             }
+            <Pagination items={this.state.artists} onChangePage={this.onChangePage} />
           </div>
 
 
 
-          <div className="container text-center">
-            <nav aria-label="Page navigation example">
-              <ul className="pagination">
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    Previous
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    1
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    2
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    3
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    Next
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
+
         </div>
     )
   }
