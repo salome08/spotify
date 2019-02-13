@@ -16,10 +16,11 @@ ReactDOM.render(
   <Router history={history}>
     <App>
       <Switch>
-        <Route exact path="/" component={DemoPage} />
+        <Route exact path="/" component={SearchPage} />
         <Route path="/search" component={SearchPage} />
         <Route path="/artist/:id" component={ArtistPage} />
         <Route path="/album/:id" component={AlbumPage} />
+        <Route path="/demo" component={DemoPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </App>

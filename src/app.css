@@ -2,5 +2,19 @@
   padding: 1.5rem;
   margin-right: 0;
   margin-left: 0;
-  border-width: .2rem;
+  border-width: 0.2rem;
+}
+
+.pagination a {
+  float: left;
+  padding: 8px 16px;
+  cursor: pointer;
+  border: solid 01px;
+  border-radius: 13px;
+  border-color: #1b85ec40;
+}
+
+.pagination li.active {
+  background-color: #1b85ec40;
+  border-radius: 13px;
 }
